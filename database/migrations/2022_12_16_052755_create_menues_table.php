@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('menues', function (Blueprint $table) {
+            $table->id();
+            $table->text('title');
+            $table->text('description');
+            $table->string('img');
+            $table->decimal('price',8,2);
+            $table->unsignedBigInteger('catagory_id')->nullable();
+            $table->foreign('catagory_id')->references('id')->on('catagories')->onUpdate('cascade')->onDelate('set null'); 
+            $table->timestamps();
+
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('menues');
+    }
+};
